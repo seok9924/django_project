@@ -1,6 +1,18 @@
+*.log
 
-# created by virtualenv automatically
-*
+*.pot
+
+*.pyc
+
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
+*/__pycache__/
+
+
+
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
@@ -12,10 +24,7 @@
 .idea/**/shelf
 
 
-# my add_
-.idea/
-venv/
-migrations/
+
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -84,3 +93,11 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+
+# my add_
+.idea/*
+venv/
+migrations/
+__pycache__/
+.idea/django_project.iml
