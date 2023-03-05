@@ -4,7 +4,6 @@ from markdownx.admin import MarkdownxModelAdmin
 # Register your models here.
 
 
-admin.site.register(Post,MarkdownxModelAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
@@ -15,6 +14,7 @@ class TagAdmin(admin.ModelAdmin):
 
 
 
+admin.site.register(Post,MarkdownxModelAdmin)
 
 admin.site.register(Category,CategoryAdmin)
 
