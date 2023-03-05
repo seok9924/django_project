@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Blog</title>
+    {% block head_title %} {% endblock %}
     <link href="{% static 'blog/css/bootstrap.min.css' %}" rel="stylesheet" , type="text/css">
     <script src="https://kit.fontawesome.com/0b5f2518eb.js" crossorigin="anonymous"></script>
 
@@ -16,6 +16,10 @@
 
 
     {% include 'blog/navbar.html' %}
+
+    {% if user.is_authenticated %}
+    <p>{{request.user.username}}님 안녕하세요</p>
+    {% endif %}
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel"
         aria-hidden="true">

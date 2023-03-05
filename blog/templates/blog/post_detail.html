@@ -1,4 +1,6 @@
 {% extends 'blog/base.html' %}
+    {% block head_title %} Post-Detail {% endblock %}
+
             {% block main_area%}
                     <!-- Post content-->
 <div id="post-area">
@@ -9,9 +11,16 @@
                         <header class="mb-4">
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">{{post.title}}</h1>
-                            {% if post.author %}}
-                            <h1 class="fw-bolder mb-1">{{post.author}}</h1>
+                            {% if post.author %}
+                            <h5 class="fw-bolder mb-1">by {{post.author}}</h5>
                             {% endif %}
+                            <hr>
+                            {% if user.is_authenticated and user == post.author %}
+                            <a class="btn btn-info btn-sm float-right" href="/blog/update_post/{{post.pk}}/" role="button">
+                                <i class="fas fa-pen"></i> Edit Post
+                            </a>
+                            {% endif %}
+
                             <h5 class="text-muted">{{post.hook_text}}</h5>
                             <!-- Post meta content-->
                             <div class="text-muted fst-italic mb-2">created :{{post.created_at}}, updated: {{post.updated_at}}</div>
@@ -32,7 +41,7 @@
 
 
                         <section class="mb-5">
-                            <p>{{post.content}}</p>
+                            <p>{{post.get_content_markdown | safe}}</p>
                             {%if post.tags.exists%}
                                 {% for tag in post.tags.all %}
                                 <i class="fas fa-tags"></i>

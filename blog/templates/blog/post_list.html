@@ -1,21 +1,33 @@
 {% extends 'blog/base.html' %}
+
+    {% block head_title %} Post_list{% endblock %}
+
             {% block main_area%}
-                <h1>Blog {% if category %}
+
+
+{% if user.is_authenticated %}
+{% if user.is_supersuer or user.is_staff %}
+<a class="btn btn-info btn-sm float-right" href="/blog/create_post/"role="button"><i class="fas fa-pen"></i>&nbsp;
+&nbsp; New Post</a>
+
+{% endif %}
+{% endif %}
+
+
+
+
+                <h1>Blog
+                    {% if category %}
                 <span class="badge badge-scondary">{{category}}</span>
                     {% endif %}
+                    {% if tag %}
+                <span class="badge badge-ligt"><i class="fas fa-tags">{{tag}}({{tag.post_set.count}})</i></span>
+                    {% endif %}
+
                 </h1>
                 {% if post_list %}
                 {% for p  in post_list %}
 
-                {%if p.tags.exists%}
-                {% for tag in p.tags.iterator %}
-                <i class="fas fa-tags"></i>
-                <a href="{{tag.get_absolute_url}}"><span class="badge badge-pill badge-light">{{tag}}</span></a>
-                {%endfor%}
-                <br/>
-
-                <br/>
-                {%endif%}
                 <div class="card mb-4" id="post-{{p.pk}}">
                     {% if p.head_image %}
                     <a href="#!"><img class="card-img-top" src="{{p.head_image.url}}" alt="{{p}} head image"></a>
@@ -32,12 +44,33 @@
                         {% endif %}
 
                         <div class="small text-muted">{{p.created_at}}</div>
-                        <h2 class="card-title h4">{{p.title}}</h2>
+                        <h2 class="card-title h4">title :{{p.title}}</h2>
                         {% if p.hook_text %}
-                        <h5>{{p.hook_text}}</h5>
+                        <hr>
+
+                        <h5>pay attention :{{p.hook_text}}</h5>
                         {%endif%}
-                        <p class="card-text">{{p.content | truncatewords:45}}</p>
+                        {% if p.author %}
+                        <hr>
+
+                        <h5>작성자: {{p.author}}</h5>
+                        {%endif%}
+                        <hr>
+                        <p class="card-text">{{p.get_content_markdown | truncatewords_html:45 | safe}}</p>
                         <a class="btn btn-primary" href="{{p.get_absolute_url}}">Read more →</a>
+
+
+                                        {%if p.tags.exists%}
+                {% for tag in p.tags.iterator %}
+                <i class="fas fa-tags"></i>
+                <a href="{{tag.get_absolute_url}}"><span class="badge badge-pill badge-light">{{tag}}</span></a>
+                {%endfor%}
+
+                <br/>
+
+                <br/>
+                {%endif%}
+
                     </div>
                 </div>
                 {% endfor %}
