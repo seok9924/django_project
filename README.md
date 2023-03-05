@@ -171,4 +171,60 @@ from markdownx.admin import MarkdownxModelAdmin
 
 
 admin.site.register(Post,MarkdownxModelAdmin)
+
 ```
+
+
+# 회원가입과 로그인 기능 추가 
+
+django-allauth
+
+```
+pip install django-allauth
+
+settings.py 에서
+installed app 내에
+'django.contrib.sites',
+'allauth',
+'allauth.account',
+'allauth.socialaccount',
+'allauth.socialaccount.providers.google',
+
+
+AUTHENTICATION_BACKENDS=(
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+SITE_ID=1
+
+ACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_EMAIL_VEREFICATION='none'
+
+urls.py 에서
+    path('accounts/',include('allauth.urls')),
+    추가
+
+쌩으로 추가
+```
+실행전에 migrate 한번해주고
+
+구글 개발자 콘솔로 가서 새 프로젝트 생성
+oauth동의 화면에서 외부하고 필요사항 저장후
+사용자 인증 정보로 이동
+uri 추가 해주자
+승인된 출처는
+```
+http://127.0.0.1:8000
+
+승인된 리디렉션 URI는
+http://127.0.0.1:8000/accounts/google/login/callback/
+
+```
+
+![img.png](img.png)
+생성완료
+
+
+sites 에서 설정 이렇게 바꿔주자
+![img_1.png](img_1.png)
