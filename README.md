@@ -228,3 +228,33 @@ http://127.0.0.1:8000/accounts/google/login/callback/
 
 sites 에서 설정 이렇게 바꿔주자
 ![img_1.png](img_1.png)
+
+
+# pagination 
+```angular2html
+    {% if is_paginated %}
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&larr; Older</a>
+                </li>
+            {% endif %}
+
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer &rarr;</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Newer &rarr;</a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+```
+이렇게 해주자

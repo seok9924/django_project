@@ -85,4 +85,4 @@ class Comment(models.Model):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
-            return f'https://api.adorable.io/avatars/60/{ self.author.username }.png'
+            return f'https://doitdjango.com/avatar/id/1465/850774b6a4e4a98d/svg/{ self.author.username }.png'
